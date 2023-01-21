@@ -9,7 +9,7 @@
     
     <title>
         
-            修改conda安装环境的默认路径 |
+            归档: 2022 |
         
         Syd&#39;s blog
     </title>
@@ -31,7 +31,7 @@
 
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {}
-    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN"}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"}
     KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":false},"style":{"primary_color":"#0066cc","logo":"/images/logo.svg","favicon":"/images/logo.svg","avatar":"/images/avatar.svg","font_size":null,"font_family":null,"hover":{"shadow":false,"scale":false},"first_screen":{"enable":false,"header_transparent":false,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving.","font_color":null,"hitokoto":false},"scroll":{"progress_bar":false,"percent":false}},"local_search":{"enable":true,"preload":false},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":false},"lazyload":{"enable":false},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":false,"auto":false,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":false},"img_align":"left","copyright_info":false},"version":"3.6.1"}
     KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
     KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
@@ -83,7 +83,7 @@
                         </li>
                     
                         <li class="menu-item">
-                            <a class=""
+                            <a class="active"
                                href="/archives"
                             >
                                 归档
@@ -133,7 +133,7 @@
                 </li>
             
                 <li class="drawer-menu-item flex-center">
-                    <a class=""
+                    <a class="active"
                        href="/archives">归档</a>
                 </li>
             
@@ -163,118 +163,45 @@
 
                 
                     <div class="fade-in-down-animation">
-    <div class="post-page-container">
-        <div class="article-content-container">
-
-            <div class="article-title">
-                <span class="title-hover-animation">修改conda安装环境的默认路径</span>
+    <div class="archive-container ">
+        
+<div class="archive-list-container">
+    
+        <section class="archive-item">
+            <div class="archive-item-header">
+                <span class="archive-year">2022</span>
+                <span class="archive-year-post-count">[3]</span>
             </div>
-
-            
-                <div class="article-header">
-                    <div class="avatar">
-                        <img src="/images/avatar.svg">
-                    </div>
-                    <div class="info">
-                        <div class="author">
-                            <span class="name">Syd</span>
-                            
-                        </div>
-                        <div class="meta-info">
-                            
-<div class="article-meta-info">
-    <span class="article-date article-meta-item">
-        
-            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
-        
-        <span class="pc">2023-01-21 00:30:10</span>
-        <span class="mobile">2023-01-21 00:30</span>
-    </span>
-    
-        <span class="article-update-date article-meta-item">
-        <i class="fas fa-file-pen"></i>&nbsp;
-        <span class="pc">2023-01-21 06:33:22</span>
-    </span>
-    
-    
-    
-        <span class="article-tags article-meta-item">
-            <i class="fas fa-tags"></i>&nbsp;
-            <ul>
+            <ul class="article-list">
                 
-                    <li>
-                        <a href="/tags/conda/">conda</a>&nbsp;
+                    <li class="article-item">
+                        <a class="article-title"
+                           href="/2022/12/16/%E4%B8%AA%E4%BA%BA%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8/"
+                        >个人电脑使用</a>
+                        <span class="article-date">12-16</span>
+                    </li>
+                
+                    <li class="article-item">
+                        <a class="article-title"
+                           href="/2022/12/12/ubuntu%E9%85%8D%E7%BD%AE/"
+                        >ubuntu配置</a>
+                        <span class="article-date">12-12</span>
+                    </li>
+                
+                    <li class="article-item">
+                        <a class="article-title"
+                           href="/2022/11/23/%E4%BF%AE%E6%94%B9conda%20%E5%AE%89%E8%A3%85%E7%8E%AF%E5%A2%83%E7%9A%84%E9%BB%98%E8%AE%A4%E8%B7%AF%E5%BE%84/"
+                        >修改conda安装环境的默认路径</a>
+                        <span class="article-date">11-23</span>
                     </li>
                 
             </ul>
-        </span>
-    
-
-    
-    
-    
+        </section>
     
 </div>
 
-                        </div>
-                    </div>
-                </div>
-            
-
-            <div class="article-content keep-markdown-body">
-                
-
-                <h3 id="操作流程"><a href="#操作流程" class="headerlink" title="操作流程"></a>操作流程</h3><p>打开 C:\Users(用户)\username\ .condarc 文件，如果没有.condarc文件，在cmd执行如下命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda config --set show_channel_urls yes</span><br></pre></td></tr></table></figure>
-
-<p>添加以下内容</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">envs_dirs:</span><br><span class="line">  - D:\Anaconda3\envs</span><br></pre></td></tr></table></figure>
-
-<p>查看conda配置信息，执行cmd命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda config --show</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="https://s1.ax1x.com/2022/11/26/zN1U0S.png"></p>
-<p>第一个路径就是默认的路径。</p>
-<p>也可以通过命令修改，add后将调整为第一个默认路径。用“&#x2F;”</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">conda config --add envs_dirs dir </span><br><span class="line">conda config --remove envs_dirs dir</span><br><span class="line">conda config --add envs_dirs E:/File/Anaconda3/envs</span><br></pre></td></tr></table></figure>
-
-<h3 id="若修改后实际并未生效"><a href="#若修改后实际并未生效" class="headerlink" title="若修改后实际并未生效"></a>若修改后实际并未生效</h3><p>需要修改 D:\Anaconda3 的权限。选中Anaconda3文件夹，右击选则属性，选择安全，选择Users（所有其他用户），点击编辑，将 Users的权限全被设为允许（特殊权限可不设）。</p>
-<p><img src="https://s1.ax1x.com/2022/11/26/zN1aTg.png"></p>
-
-            </div>
-
-            
-
-            
-                <ul class="post-tags-box">
-                    
-                        <li class="tag-item">
-                            <a href="/tags/conda/">#conda</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            
-
-            
-
-            
-        </div>
-
-        
-            <div class="toc-content-container">
-                <div class="post-toc-wrap">
-    <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-text">操作流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8B%A5%E4%BF%AE%E6%94%B9%E5%90%8E%E5%AE%9E%E9%99%85%E5%B9%B6%E6%9C%AA%E7%94%9F%E6%95%88"><span class="nav-text">若修改后实际并未生效</span></a></li></ol>
     </div>
 </div>
-
-            </div>
-        
-    </div>
-</div>
-
 
                 
             </div>
@@ -308,23 +235,6 @@
         </div>
     </div>
 
-    
-        <div class="post-tools">
-            <div class="post-tools-container">
-    <ul class="tools-list">
-        <!-- TOC aside toggle -->
-        
-            <li class="tools-item flex-center toggle-show-toc">
-                <i class="fas fa-list"></i>
-            </li>
-        
-
-        <!-- go comment -->
-        
-    </ul>
-</div>
-
-        </div>
     
 
     <div class="right-bottom-side-tools">
@@ -435,20 +345,6 @@
 
 
 <div class="post-scripts">
-    
-        
-<script src="/js/post-helper.js"></script>
-
-        
-            
-<script src="/js/libs/anime.min.js"></script>
-
-        
-        
-            
-<script src="/js/toc.js"></script>
-
-        
     
 </div>
 

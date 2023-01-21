@@ -9,7 +9,7 @@
     
     <title>
         
-            归档: 2023/1 |
+            ubuntu配置 |
         
         Syd&#39;s blog
     </title>
@@ -31,7 +31,7 @@
 
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {}
-    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN"}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"}
     KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":false},"style":{"primary_color":"#0066cc","logo":"/images/logo.svg","favicon":"/images/logo.svg","avatar":"/images/avatar.svg","font_size":null,"font_family":null,"hover":{"shadow":false,"scale":false},"first_screen":{"enable":false,"header_transparent":false,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving.","font_color":null,"hitokoto":false},"scroll":{"progress_bar":false,"percent":false}},"local_search":{"enable":true,"preload":false},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":false},"lazyload":{"enable":false},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":false,"auto":false,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":false},"img_align":"left","copyright_info":false},"version":"3.6.1"}
     KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
     KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
@@ -83,7 +83,7 @@
                         </li>
                     
                         <li class="menu-item">
-                            <a class="active"
+                            <a class=""
                                href="/archives"
                             >
                                 归档
@@ -133,7 +133,7 @@
                 </li>
             
                 <li class="drawer-menu-item flex-center">
-                    <a class="active"
+                    <a class=""
                        href="/archives">归档</a>
                 </li>
             
@@ -163,31 +163,147 @@
 
                 
                     <div class="fade-in-down-animation">
-    <div class="archive-container ">
-        
-<div class="archive-list-container">
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2023</span>
-                <span class="archive-year-post-count">[1]</span>
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">ubuntu配置</span>
             </div>
-            <ul class="article-list">
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Syd</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2022-12-12 23:40:00</span>
+        <span class="mobile">2022-12-12 23:40</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2023-01-21 10:04:55</span>
+    </span>
+    
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
                 
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2023/01/21/%E4%BF%AE%E6%94%B9conda%20%E5%AE%89%E8%A3%85%E7%8E%AF%E5%A2%83%E7%9A%84%E9%BB%98%E8%AE%A4%E8%B7%AF%E5%BE%84/"
-                        >修改conda安装环境的默认路径</a>
-                        <span class="article-date">01-21</span>
+                    <li>
+                        <a href="/tags/ubuntu/">ubuntu</a>&nbsp;
                     </li>
                 
             </ul>
-        </section>
+        </span>
+    
+
+    
+    
+    
     
 </div>
 
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <h3 id="事项"><a href="#事项" class="headerlink" title="事项"></a>事项</h3><p>VM和ubuntu版本都用最新的就行</p>
+<p>ubuntu NAT联网，自己的连接的网络得设置共享，直接搜控制面板就好。在VM中设置虚拟网络编辑器，还原默认值，还要用管理员打开。</p>
+<p>调整屏幕分辨率，设成自由拉伸</p>
+<p>更换 <a class="link"   target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/" >清华源<i class="fas fa-external-link-alt"></i></a>（不限速，比其他源好点） </p>
+<p>安装 tweak 优化</p>
+<p>安装中文输入法，调整快捷键为ctrl + 空格</p>
+<p>关闭sudo输入密码</p>
+<p>在模板中建立txt文件快捷方式</p>
+<p>安装g++编译器和VScode</p>
+<p>设置open-vm-tools，不是用vm-tools！</p>
+<h3 id="bug记录"><a href="#bug记录" class="headerlink" title="bug记录"></a>bug记录</h3><p>新版本的ubuntu需要用open-vm-tools，vm-tools不兼容而且会和前面那个冲突，所以需要先删除干净。</p>
+<p>不知道咋回事，突然又连不上网了，这次是连那个有线连接的图标都没了。 <a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36347513/article/details/126573588" >教程<i class="fas fa-external-link-alt"></i></a></p>
+
+            </div>
+
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/ubuntu/">#ubuntu</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2022/12/16/%E4%B8%AA%E4%BA%BA%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item">个人电脑使用</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2022/11/23/%E4%BF%AE%E6%94%B9conda%20%E5%AE%89%E8%A3%85%E7%8E%AF%E5%A2%83%E7%9A%84%E9%BB%98%E8%AE%A4%E8%B7%AF%E5%BE%84/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">修改conda安装环境的默认路径</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E9%A1%B9"><span class="nav-text">事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bug%E8%AE%B0%E5%BD%95"><span class="nav-text">bug记录</span></a></li></ol>
     </div>
 </div>
+
+            </div>
+        
+    </div>
+</div>
+
 
                 
             </div>
@@ -221,6 +337,23 @@
         </div>
     </div>
 
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
     
 
     <div class="right-bottom-side-tools">
@@ -331,6 +464,20 @@
 
 
 <div class="post-scripts">
+    
+        
+<script src="/js/post-helper.js"></script>
+
+        
+            
+<script src="/js/libs/anime.min.js"></script>
+
+        
+        
+            
+<script src="/js/toc.js"></script>
+
+        
     
 </div>
 
