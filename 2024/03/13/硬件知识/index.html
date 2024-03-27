@@ -9,7 +9,7 @@
     
     <title>
         
-            DDP demo |
+            硬件知识 |
         
         Syd&#39;s blog
     </title>
@@ -191,7 +191,7 @@
             <div class="post-content-bottom border-box">
                 
                     <div class="post-title">
-                        DDP demo
+                        硬件知识
                     </div>
                 
 
@@ -217,29 +217,17 @@
         
             <span class="meta-info-item post-create-date">
                 <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
-                <span class="datetime">2024-01-03</span>
+                <span class="datetime">2024-03-13</span>
             </span>
 
             <span class="meta-info-item post-update-date">
                 <i class="icon fa-solid fa-file-pen"></i>&nbsp;
-                <span class="datetime" data-updated="Fri Jan 05 2024 14:32:38 GMT+0800">2024-01-05</span>
+                <span class="datetime" data-updated="Thu Mar 28 2024 02:00:23 GMT+0800">2024-03-28</span>
             </span>
         
 
         
 
-        
-            <span class="post-tag meta-info-item border-box">
-                <ul class="post-tag-ul">
-                    
-                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/torch/">torch</a></li>
-                        
-                    
-                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/%E6%95%B0%E6%8D%AE%E5%B9%B6%E8%A1%8C/">数据并行</a></li>
-                        
-                    
-                </ul>
-            </span>
         
 
         
@@ -263,27 +251,18 @@
                 <div class="post-content keep-markdown-body">
                     
 
-                    <p>DDP demo</p>
-<p>torch中DDP比DP效果好，用torchrun启动程序。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torchvision.models <span class="keyword">as</span> models</span><br><span class="line"><span class="keyword">from</span> torch.nn.parallel <span class="keyword">import</span> DistributedDataParallel <span class="keyword">as</span> DDP</span><br><span class="line"><span class="keyword">import</span> torch.distributed <span class="keyword">as</span> dist</span><br><span class="line"></span><br><span class="line">num_classes = <span class="number">4</span>  </span><br><span class="line">num_epochs = <span class="number">10</span></span><br><span class="line">batch_size = <span class="number">512</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">train</span>():</span><br><span class="line">  dist.init_process_group(<span class="string">&quot;nccl&quot;</span>)</span><br><span class="line">  rank = dist.get_rank()</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">f&quot;Start running basic DDP example on rank <span class="subst">&#123;rank&#125;</span>.&quot;</span>)</span><br><span class="line"></span><br><span class="line">  vgg = models.vgg16(pretrained=<span class="literal">True</span>)</span><br><span class="line">  vgg = DDP(vgg.to(rank), device_ids=[rank])</span><br><span class="line">  loss = nn.CrossEntropyLoss()</span><br><span class="line">  optimizer = torch.optim.SGD(vgg.parameters(), lr=<span class="number">0.001</span>, momentum=<span class="number">0.9</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(num_epochs):</span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    images = torch.randn(batch_size, <span class="number">3</span>, <span class="number">64</span>, <span class="number">64</span>)</span><br><span class="line">    labels = torch.randint(size=(batch_size,), low=<span class="number">0</span>, high=num_classes).to(rank)</span><br><span class="line">    outputs = vgg(images)</span><br><span class="line"></span><br><span class="line">    loss(outputs, labels).backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">   </span><br><span class="line">  dist.destroy_process_group()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">  train()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">torchrun --nnodes=1 --nproc_per_node=4  --master_port 12480 vgg_mul4.py</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+                    <h5 id="PCIe总线"><a href="#PCIe总线" class="headerlink" title="PCIe总线"></a>PCIe总线</h5><p>参考资料</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://r12f.com/posts/pcie-1-basics/" >PCIe（一） —— 基础概念与设备树 | Soul Orbit (r12f.com)<i class="fas fa-external-link-alt"></i></a></p>
+<h5 id="RDMA"><a href="#RDMA" class="headerlink" title="RDMA"></a>RDMA</h5><p>就是跨机直接访问内存，会减少开销</p>
+<p>参考资料</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/672749098" >【最新】Nvidia GPU互联技术全景图 - 知乎 (zhihu.com)<i class="fas fa-external-link-alt"></i></a></p>
+<p>存储DDR</p>
 
                 </div>
                 
 
                 <div class="post-bottom-tags-and-share border-box">
                     <div>
-                        
-                            <ul class="post-tags-box border-box">
-                                
-                                    <li class="tag-item border-box">
-                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/torch/">torch</a>
-                                    </li>
-                                
-                                    <li class="tag-item border-box">
-                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/%E6%95%B0%E6%8D%AE%E5%B9%B6%E8%A1%8C/">数据并行</a>
-                                    </li>
-                                
-                            </ul>
                         
                     </div>
                     <div>
@@ -296,31 +275,15 @@
                 
                     <div class="post-nav border-box">
                         
-                            <div class="prev-post">
-                                <a class="prev"
-                                   rel="prev"
-                                   href="/2024/03/13/%E7%A1%AC%E4%BB%B6%E7%9F%A5%E8%AF%86/"
-                                   title="硬件知识"
-                                >
-                                    <span class="left arrow-icon flex-center">
-                                        <i class="fas fa-chevron-left"></i>
-                                    </span>
-                                    <span class="title flex-center">
-                                        <span class="post-nav-title-item text-ellipsis">硬件知识</span>
-                                        <span class="post-nav-item">上一篇</span>
-                                    </span>
-                                </a>
-                            </div>
-                        
                         
                             <div class="next-post">
                                 <a class="next"
                                    rel="next"
-                                   href="/2023/12/26/%E6%96%B9%E6%B3%95%E8%AE%B0%E5%BD%95/"
-                                   title="方法记录"
+                                   href="/2024/01/03/%E4%BB%A3%E7%A0%81demo/DDP%20demo/"
+                                   title="DDP demo"
                                 >
                                     <span class="title flex-center">
-                                        <span class="post-nav-title-item text-ellipsis">方法记录</span>
+                                        <span class="post-nav-title-item text-ellipsis">DDP demo</span>
                                         <span class="post-nav-item">下一篇</span>
                                     </span>
                                     <span class="right arrow-icon flex-center">
@@ -348,7 +311,7 @@
             <div class="pc-post-toc right-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        
+        <ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#PCIe%E6%80%BB%E7%BA%BF"><span class="nav-text">PCIe总线</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#RDMA"><span class="nav-text">RDMA</span></a></li></ol>
     </div>
 </div>
 
@@ -521,7 +484,7 @@
             <div class="tablet-post-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        
+        <ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#PCIe%E6%80%BB%E7%BA%BF"><span class="nav-text">PCIe总线</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#RDMA"><span class="nav-text">RDMA</span></a></li></ol>
     </div>
 </div>
 
