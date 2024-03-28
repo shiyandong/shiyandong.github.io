@@ -261,17 +261,14 @@
                     
 
                     <p>linux的基本使用。自己电脑用wsl就可以，谷歌的colab在线环境也挺好。</p>
-<h4 id="常用命令"><a class="markdownIt-Anchor" href="#常用命令"></a> 常用命令</h4>
-<p>查找文件。<code>/</code>: 表示从根目录开始查找。</p>
+<h4 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h4><p>查找文件。<code>/</code>: 表示从根目录开始查找。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -name &quot;local&quot;</span><br></pre></td></tr></table></figure>
-<h4 id="常用配置"><a class="markdownIt-Anchor" href="#常用配置"></a> 常用配置</h4>
-<p>更换pip清华源，快的飞起。</p>
+<h4 id="常用配置"><a href="#常用配置" class="headerlink" title="常用配置"></a>常用配置</h4><p>更换pip清华源，快的飞起。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure>
-<h4 id="docker"><a class="markdownIt-Anchor" href="#docker"></a> docker</h4>
-<p>python ，pytorch，cuda都要相互兼容。可以用官方提供的docker。</p>
+<h4 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h4><p>python ，pytorch，cuda都要相互兼容。可以用官方提供的docker。</p>
 <p>cuda版本用这个看 ，其他的如nvidia-smi都不是。  pytorch类似。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -c &quot;import torch; print(torch.version.cuda)&quot;</span><br></pre></td></tr></table></figure>
-<p>docker run的时候要-v挂载数据， --shm-size扩大空间。docker工作目录命名为workspace，还得重新命名。</p>
+<p>docker run的时候要-v挂载数据， —shm-size扩大空间。docker工作目录命名为workspace，还得重新命名。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --name ydshi_3_1 --gpus all --shm-size=1G -v /home/ydshi/data:/workspace nvcr.io/nvidia/pytorch:22.04-py3 /bin/bash</span><br></pre></td></tr></table></figure>
 <p>创建完容器之后重新打开</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker start ydshi_3_1</span><br><span class="line">docker exec -it ydshi_3_1 /bin/bash </span><br></pre></td></tr></table></figure>
@@ -279,16 +276,13 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
 <p>查看容器</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps </span><br></pre></td></tr></table></figure>
-<h4 id="ssh"><a class="markdownIt-Anchor" href="#ssh"></a> ssh</h4>
-<p>连接需要用户名、ip地址、密码。默认端口22。</p>
+<h4 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h4><p>连接需要用户名、ip地址、密码。默认端口22。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh username@host</span><br></pre></td></tr></table></figure>
 <p>可以在vscode里面下载插件，打开服务器的文件夹</p>
-<h4 id="wsl2"><a class="markdownIt-Anchor" href="#wsl2"></a> WSL2</h4>
-<p>windows开启Linux子系统设置</p>
+<h4 id="WSL2"><a href="#WSL2" class="headerlink" title="WSL2"></a>WSL2</h4><p>windows开启Linux子系统设置</p>
 <p>ms store里面下个20.04ubuntu</p>
 <p>再在vscode中打开，原生环境编程就很方便，不用在windows里折腾。</p>
-<h4 id="vm虚拟机"><a class="markdownIt-Anchor" href="#vm虚拟机"></a> VM虚拟机</h4>
-<p>ubuntu NAT联网，自己的连接的网络得设置共享，直接搜控制面板就好。在VM中设置虚拟网络编辑器，还原默认值，还要用管理员打开。</p>
+<h4 id="VM虚拟机"><a href="#VM虚拟机" class="headerlink" title="VM虚拟机"></a>VM虚拟机</h4><p>ubuntu NAT联网，自己的连接的网络得设置共享，直接搜控制面板就好。在VM中设置虚拟网络编辑器，还原默认值，还要用管理员打开。</p>
 <p>调整屏幕分辨率，设成自由拉伸</p>
 <p>安装 tweak 优化</p>
 <p>设置open-vm-tools，不是用vm-tools！</p>
@@ -370,7 +364,7 @@
             <div class="pc-post-toc right-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-text"> 常用命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE"><span class="nav-text"> 常用配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker"><span class="nav-text"> docker</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ssh"><span class="nav-text"> ssh</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#wsl2"><span class="nav-text"> WSL2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vm%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-text"> VM虚拟机</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE"><span class="nav-text">常用配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker"><span class="nav-text">docker</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ssh"><span class="nav-text">ssh</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WSL2"><span class="nav-text">WSL2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#VM%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-text">VM虚拟机</span></a></li></ol>
     </div>
 </div>
 
@@ -543,7 +537,7 @@
             <div class="tablet-post-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-text"> 常用命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE"><span class="nav-text"> 常用配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker"><span class="nav-text"> docker</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ssh"><span class="nav-text"> ssh</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#wsl2"><span class="nav-text"> WSL2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vm%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-text"> VM虚拟机</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE"><span class="nav-text">常用配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker"><span class="nav-text">docker</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ssh"><span class="nav-text">ssh</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WSL2"><span class="nav-text">WSL2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#VM%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-text">VM虚拟机</span></a></li></ol>
     </div>
 </div>
 

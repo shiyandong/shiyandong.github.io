@@ -198,13 +198,13 @@
 
                     <div class="home-post-content keep-markdown-body">
                         
-                            PCIe总线参考资料
+                            XXX.py
+NIC 网卡
+DDR 内存
+PCIe switch  就是一个接口拓展，把硬件连接起来
+PCIe总线参考资料
 PCIe（一） —— 基础概念与设备树 | Soul Orbit (r12f.com)
-RDMA就是跨机直接访问内存，会减少开销
-参考资料
-【最新】Nvidia GPU互联技术全景图 - 知乎 (zhihu.com)
-存储DDR
-
+RDMA就是跨机直接访问内存，会减少开...
                         
                     </div>
 
@@ -215,8 +215,8 @@ RDMA就是跨机直接访问内存，会减少开销
         
             <span class="meta-info-item border-box">
                 <i class="icon fa-solid fa-history"></i>&nbsp;<span class="home-post-history"
-                                                                                data-updated="Thu Mar 28 2024 02:00:23 GMT+0800"
-                >2024-03-28 02:00:23</span>
+                                                                                data-updated="Thu Mar 28 2024 17:54:29 GMT+0800"
+                >2024-03-28 17:54:29</span>
             </span>
         
 
@@ -306,10 +306,9 @@ torch中DDP比DP效果好，用torchrun启动程序。
 
                     <div class="home-post-content keep-markdown-body">
                         
-                             查找新模型
-PyTorch库 timm有很多SOTA模型 huggingface/pytorch-image-models ，再结合 模型榜单 就能知道最新的模型了。
+                            查找新模型PyTorch库 timm有很多SOTA模型 huggingface/pytorch-image-models ，再结合 模型榜单 就能知道最新的模型了。
 timm 库引用模型并打印结构
-123model = timm.create_m...
+123model = timm.create_mod...
                         
                     </div>
 
@@ -359,10 +358,9 @@ timm 库引用模型并打印结构
 
                     <div class="home-post-content keep-markdown-body">
                         
-                             常用方法
- Cross Entropy Loss
-交叉熵主要用于度量两个概率分布间的差异性。标签值 y（分类时用one-hot编码，真实类别是1，其他为0）， 预测值 a，分类数n
- loss =−∑j=1nyjln⁡aj\text { loss ...
+                            常用方法Cross Entropy Loss交叉熵主要用于度量两个概率分布间的差异性。标签值 y（分类时用one-hot编码，真实类别是1，其他为0）， 预测值 a，分类数n
+
+\text { loss }=-\sum_{j=1}^n y_j \ln...
                         
                     </div>
 
@@ -412,12 +410,11 @@ timm 库引用模型并打印结构
 
                     <div class="home-post-content keep-markdown-body">
                         
-                             简介
-主要针对transformer大模型架构，megatron-LM框架。
+                            简介主要针对transformer大模型架构，megatron-LM框架。
 资料
 NVIDIA/Megatron-LM   官网里面给出了经典的3篇文章
 常见的分布式并行策略 - OneFlow
-并行技术 | Colossal-AI (colos...
+并行技术 | Colossal-AI (colossa...
                         
                     </div>
 
@@ -468,10 +465,8 @@ NVIDIA/Megatron-LM   官网里面给出了经典的3篇文章
                     <div class="home-post-content keep-markdown-body">
                         
                             
- embedding
-参数维度大小是（v,h），v是词表总量，h是hidden_size。 每个词有个整数索引，embedding后就是对应索引的那行，python代码中张量直接套一个索引就得出了。
- self-attention
-能提取序列的关系...
+embedding参数维度大小是（v,h），v是词表总量，h是hidden_size。 每个词有个整数索引，embedding后就是对应索引的那行，python代码中张量直接套一个索引就得出了。
+self-attention能提取序列的关系，取代了...
                         
                     </div>
 
@@ -521,9 +516,8 @@ NVIDIA/Megatron-LM   官网里面给出了经典的3篇文章
 
                     <div class="home-post-content keep-markdown-body">
                         
-                             运行megatron
-运行环境如下，还需要注释trans engine模块，参数   --transformer-impl local
-1docker run -it --name ydshi_3_1 --gpus all --shm-size=1...
+                            运行megatron运行环境如下，还需要注释trans engine模块，参数   —transformer-impl local 
+1docker run -it --name ydshi_3_1 --gpus all --shm-size=1G ...
                         
                     </div>
 
@@ -574,12 +568,10 @@ NVIDIA/Megatron-LM   官网里面给出了经典的3篇文章
                     <div class="home-post-content keep-markdown-body">
                         
                             linux的基本使用。自己电脑用wsl就可以，谷歌的colab在线环境也挺好。
- 常用命令
-查找文件。/: 表示从根目录开始查找。
+常用命令查找文件。/: 表示从根目录开始查找。
 1find / -name &quot;local&quot;
- 常用配置
-更换pip清华源，快的飞起。
-1pip c...
+常用配置更换pip清华源，快的飞起。
+1pip confi...
                         
                     </div>
 
@@ -629,10 +621,9 @@ NVIDIA/Megatron-LM   官网里面给出了经典的3篇文章
 
                     <div class="home-post-content keep-markdown-body">
                         
-                             操作流程
-打开 C:\Users(用户)\username\ .condarc 文件，如果没有，执行命令：
+                            操作流程打开 C:\Users(用户)\username .condarc 文件，如果没有，执行命令：
 1conda config --set show_channel_urls yes
-查看conda配置信息，执行命令查看。第一个路径就是默认...
+查看conda配置信息，执行命令查看。第一个路径就是默认的路径...
                         
                     </div>
 
@@ -683,11 +674,11 @@ NVIDIA/Megatron-LM   官网里面给出了经典的3篇文章
                     <div class="home-post-content keep-markdown-body">
                         
                             hexo+keep主题的静态网站。
-我需要的博客功能：
+我需要的博客功能：    
 A：代码折叠，数学公式，简洁美观。
 文章不想公开时：
 A：用密码访问，在静态仓库能看到。可以放在_draft文件不上传，在本地先看着。
-Git Bash进入博客目录中（D:\blog，D:\bl...
+Git Bash进入博客目录中（D:\blog，D...
                         
                     </div>
 

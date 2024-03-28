@@ -260,28 +260,21 @@
                 <div class="post-content keep-markdown-body">
                     
 
-                    <h3 id="运行megatron"><a class="markdownIt-Anchor" href="#运行megatron"></a> 运行megatron</h3>
-<p>运行环境如下，还需要注释trans engine模块，参数   --transformer-impl local</p>
+                    <h3 id="运行megatron"><a href="#运行megatron" class="headerlink" title="运行megatron"></a>运行megatron</h3><p>运行环境如下，还需要注释trans engine模块，参数   —transformer-impl local </p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --name ydshi_3_1 --gpus all --shm-size=1G -v /home/ydshi/data:/workspace nvcr.io/nvidia/pytorch:22.04-py3 /bin/bash</span><br></pre></td></tr></table></figure>
 <p>gpt需要下载vocab，merges 2个文件，可以在hugging face下载到。按官网教程预处理数据。将sh脚本补充完整，并自定义好参数，GPUS_PER_NODE、tp、pp等。</p>
 <p>运行命令就可以了。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash examples/pretrain_gpt_distributed_with_mp.sh &gt; record.txt </span><br></pre></td></tr></table></figure>
-<h3 id="tips"><a class="markdownIt-Anchor" href="#tips"></a> tips</h3>
-<h4 id="no1"><a class="markdownIt-Anchor" href="#no1"></a> no.1</h4>
-<p>在主机bash下删除不了文件，这时候可以将文件挂载到docker容器中删除。</p>
-<h4 id="no2"><a class="markdownIt-Anchor" href="#no2"></a> no.2</h4>
-<p>CUDA out of memory，就是显存不够了，可以减小一些参数。</p>
-<p>​    --num-layers 12 <br />
-​    --hidden-size 256 \</p>
-<h3 id="统计nccl通信占比"><a class="markdownIt-Anchor" href="#统计nccl通信占比"></a> 统计nccl通信占比</h3>
-<p>在interation 代码前后插入 <a class="link"   target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/generated/torch.cuda.nvtx.range_push.html#torch-cuda-nvtx-range-push" >torch.cuda.nvtx.range_push <i class="fas fa-external-link-alt"></i></a>  、 …pop tag。运行时前面加上<strong>nsys profile</strong>，在windows 使用NsightSystems 进行可视化查看。（一般第一个iteration是warm up，可以设置成5、10）</p>
-<p><img   src="https://cdn.jsdelivr.net/gh/shiyandong/picture/blog/202403280159353.png"  alt="202312052012691" ></p>
-<p>下载师兄改版的pyprof，使用 <a class="link"   target="_blank" rel="noopener" href="http://myrun.sh" >myrun.sh<i class="fas fa-external-link-alt"></i></a> 将nsys文件转化成 csv表格。在可视化文件中复制iteration的信息（要找default stream），如图。</p>
+<h3 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h3><h4 id="no-1"><a href="#no-1" class="headerlink" title="no.1"></a>no.1</h4><p>在主机bash下删除不了文件，这时候可以将文件挂载到docker容器中删除。</p>
+<h4 id="no-2"><a href="#no-2" class="headerlink" title="no.2"></a>no.2</h4><p>CUDA out of memory，就是显存不够了，可以减小一些参数。</p>
+<p>​    —num-layers 12 \<br>​    —hidden-size 256  </p>
+<h3 id="统计nccl通信占比"><a href="#统计nccl通信占比" class="headerlink" title="统计nccl通信占比"></a>统计nccl通信占比</h3><p>在interation 代码前后插入 <a class="link"   target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/generated/torch.cuda.nvtx.range_push.html#torch-cuda-nvtx-range-push" >torch.cuda.nvtx.range_push <i class="fas fa-external-link-alt"></i></a>  、 …pop tag。运行时前面加上<strong>nsys profile</strong>，在windows 使用NsightSystems 进行可视化查看。（一般第一个iteration是warm up，可以设置成5、10）</p>
+<p><img   src="https://cdn.jsdelivr.net/gh/shiyandong/picture/blog/202403280159353.png"  alt="202312052012691"></p>
+<p>下载师兄改版的pyprof，使用 myrun.sh 将nsys文件转化成 csv表格。在可视化文件中复制iteration的信息（要找default stream），如图。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Name	Start	Duration	TID	GPU	Context</span><br><span class="line">Description of the event [968.163 ms]	18.0755s	968.163 ms	117199	GPU 1	Stream 7</span><br></pre></td></tr></table></figure>
-<p><a class="link"   target="_blank" rel="noopener" href="http://xn--interation-vq6pu5thc747kdgkfxr.py" >将信息复制到interation.py<i class="fas fa-external-link-alt"></i></a>,正则表达式提取信息，<a class="link"   target="_blank" rel="noopener" href="http://xn--algo-kg2h457igp7a.py" >并调用algo.py<i class="fas fa-external-link-alt"></i></a> 得到时间占比。</p>
-<p><a class="link"   target="_blank" rel="noopener" href="http://algo.py" >algo.py<i class="fas fa-external-link-alt"></i></a> 是统计kernel时间的，在megatron-LM/result文件夹。</p>
-<h4 id="myrunsh"><a class="markdownIt-Anchor" href="#myrunsh"></a> <a class="link"   target="_blank" rel="noopener" href="http://myrun.sh" >myrun.sh<i class="fas fa-external-link-alt"></i></a></h4>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">nsys profile bash examples/pretrain_gpt_distributed_with_mp.sh &gt; record.txt </span><br><span class="line"></span><br><span class="line">nsys stats --report=sqlite  pp4.nsys-rep</span><br><span class="line"></span><br><span class="line">python3 -m pyprof.parse pp4.sqlite &gt; pp4.json</span><br><span class="line"></span><br><span class="line">python3 -m pyprof.prof --csv -c idx,kernel,sil,device,stream,start,end,grid,block pp4.json &gt; pp4.csv</span><br></pre></td></tr></table></figure>
+<p>将信息复制到interation.py,正则表达式提取信息，并调用algo.py 得到时间占比。</p>
+<p>algo.py 是统计kernel时间的，在megatron-LM/result文件夹。</p>
+<h4 id="myrun-sh"><a href="#myrun-sh" class="headerlink" title="myrun.sh"></a>myrun.sh</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">nsys profile bash examples/pretrain_gpt_distributed_with_mp.sh &gt; record.txt </span><br><span class="line"></span><br><span class="line">nsys stats --report=sqlite  pp4.nsys-rep</span><br><span class="line"></span><br><span class="line">python3 -m pyprof.parse pp4.sqlite &gt; pp4.json</span><br><span class="line"></span><br><span class="line">python3 -m pyprof.prof --csv -c idx,kernel,sil,device,stream,start,end,grid,block pp4.json &gt; pp4.csv</span><br></pre></td></tr></table></figure>
 
                 </div>
                 
@@ -360,7 +353,7 @@
             <div class="pc-post-toc right-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8Cmegatron"><span class="nav-text"> 运行megatron</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tips"><span class="nav-text"> tips</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#no1"><span class="nav-text"> no.1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#no2"><span class="nav-text"> no.2</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1nccl%E9%80%9A%E4%BF%A1%E5%8D%A0%E6%AF%94"><span class="nav-text"> 统计nccl通信占比</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#myrunsh"><span class="nav-text"> myrun.sh</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8Cmegatron"><span class="nav-text">运行megatron</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tips"><span class="nav-text">tips</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#no-1"><span class="nav-text">no.1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#no-2"><span class="nav-text">no.2</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1nccl%E9%80%9A%E4%BF%A1%E5%8D%A0%E6%AF%94"><span class="nav-text">统计nccl通信占比</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#myrun-sh"><span class="nav-text">myrun.sh</span></a></li></ol></li></ol>
     </div>
 </div>
 
@@ -533,7 +526,7 @@
             <div class="tablet-post-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8Cmegatron"><span class="nav-text"> 运行megatron</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tips"><span class="nav-text"> tips</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#no1"><span class="nav-text"> no.1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#no2"><span class="nav-text"> no.2</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1nccl%E9%80%9A%E4%BF%A1%E5%8D%A0%E6%AF%94"><span class="nav-text"> 统计nccl通信占比</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#myrunsh"><span class="nav-text"> myrun.sh</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8Cmegatron"><span class="nav-text">运行megatron</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tips"><span class="nav-text">tips</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#no-1"><span class="nav-text">no.1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#no-2"><span class="nav-text">no.2</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1nccl%E9%80%9A%E4%BF%A1%E5%8D%A0%E6%AF%94"><span class="nav-text">统计nccl通信占比</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#myrun-sh"><span class="nav-text">myrun.sh</span></a></li></ol></li></ol>
     </div>
 </div>
 
