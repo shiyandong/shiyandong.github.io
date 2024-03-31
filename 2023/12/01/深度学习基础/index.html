@@ -222,7 +222,7 @@
 
             <span class="meta-info-item post-update-date">
                 <i class="icon fa-solid fa-file-pen"></i>&nbsp;
-                <span class="datetime" data-updated="Tue Dec 26 2023 22:49:50 GMT+0800">2023-12-26</span>
+                <span class="datetime" data-updated="Sun Mar 31 2024 20:05:36 GMT+0800">2024-03-31</span>
             </span>
         
 
@@ -320,9 +320,10 @@ V_t & =\beta_2 V_{t-1}+\left(1-\beta_2\right) g_t^2 \\
 
 \end{aligned}</script><p>二阶动量$V_t $ 是历史梯度平方和，度量历史更新频率。参数更新越频繁，二阶动量越大，学习率就越小。$\hat{m}_t 、\hat{V}_t$是偏差修正。</p>
 <p>资料</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://haiping.vip/2020/02/21/优化器/" >optimizer优化器总结 - weber’s Blog (haiping.vip)<i class="fas fa-external-link-alt"></i></a></p>
+<p>反向传播</p>
 <p><a class="link"   target="_blank" rel="noopener" href="https://hannlp.github.io/2020-11-06-Back-Propagation-and-Gradient-Calculation-in-Deep-Learning/" >Back Propagation and Gradient Calculation in Deep Learning (hannlp.github.io)<i class="fas fa-external-link-alt"></i></a></p>
 <p><a class="link"   target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV16x411V7Qg?p=2&amp;vd_source=beee036ef7b5cbbed88ff79ffb991c1c" >下篇 反向传播的微积分原理_哔哩哔哩_bilibili<i class="fas fa-external-link-alt"></i></a></p>
-<p><a class="link"   target="_blank" rel="noopener" href="https://haiping.vip/2020/02/21/优化器/" >optimizer优化器总结 - weber’s Blog (haiping.vip)<i class="fas fa-external-link-alt"></i></a></p>
 <h3 id="cnn"><a href="#cnn" class="headerlink" title="cnn"></a>cnn</h3><p>有卷积层、池化层。反向计算梯度时看前向计算对后面的影响，从而有相应的系数。</p>
 <p>资料 </p>
 <p><a class="link"   target="_blank" rel="noopener" href="https://www.cnblogs.com/pinard/p/6494810.html" >卷积神经网络(CNN)反向传播算法 - 刘建平Pinard - 博客园 (cnblogs.com)<i class="fas fa-external-link-alt"></i></a></p>
@@ -330,7 +331,7 @@ V_t & =\beta_2 V_{t-1}+\left(1-\beta_2\right) g_t^2 \\
 <p>这个卷积层参数：$64\times3\times9+64 = 1792$  </p>
 <p>一个通道的结果： 输入的3个通道各自经过一个卷积核再相加得到的，卷积核个数=输出通道*输入通道，每个通道还有有一个偏置。 </p>
 <p>资料</p>
-<p><a class="link"   target="_blank" rel="noopener" href="https://hezl1592.github.io/2020/04/22/深度学习_Pytorch_参数量&amp;计算量/" >深度学习 | 卷积操作参数量和计算量 · zilch个人博客 (hezl1592.github.io)<i class="fas fa-external-link-alt"></i></a>  图很形象</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://hezl1592.github.io/2020/04/22/深度学习_Pytorch_参数量&amp;计算量/" >卷积操作参数量和计算量 <i class="fas fa-external-link-alt"></i></a>      卷积核图示</p>
 
                 </div>
                 
