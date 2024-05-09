@@ -9,7 +9,7 @@
     
     <title>
         
-            GPU并行 |
+            情感历程 |
         
         introspection
     </title>
@@ -191,7 +191,7 @@
             <div class="post-content-bottom border-box">
                 
                     <div class="post-title">
-                        GPU并行
+                        情感历程
                     </div>
                 
 
@@ -217,12 +217,12 @@
         
             <span class="meta-info-item post-create-date">
                 <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
-                <span class="datetime">2023-11-20</span>
+                <span class="datetime">2024-05-09</span>
             </span>
 
             <span class="meta-info-item post-update-date">
                 <i class="icon fa-solid fa-file-pen"></i>&nbsp;
-                <span class="datetime" data-updated="Tue Apr 09 2024 03:04:44 GMT+0800">2024-04-09</span>
+                <span class="datetime" data-updated="Thu May 09 2024 20:40:16 GMT+0800">2024-05-09</span>
             </span>
         
 
@@ -232,7 +232,10 @@
             <span class="post-tag meta-info-item border-box">
                 <ul class="post-tag-ul">
                     
-                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/GPU%E5%B9%B6%E8%A1%8C/">GPU并行</a></li>
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/private/">private</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/%E7%94%9F%E6%B4%BB/">生活</a></li>
                         
                     
                 </ul>
@@ -260,32 +263,18 @@
                 <div class="post-content keep-markdown-body">
                     
 
-                    <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>主要针对transformer大模型架构，megatron-LM框架。</p>
-<p>资料</p>
-<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/NVIDIA/Megatron-LM" >NVIDIA/Megatron-LM <i class="fas fa-external-link-alt"></i></a>  官网里面给出了经典的3篇文章</p>
-<p><a class="link"   target="_blank" rel="noopener" href="https://docs.oneflow.org/master/parallelism/01_introduction.html" >常见的分布式并行策略 - OneFlow<i class="fas fa-external-link-alt"></i></a></p>
-<p><a class="link"   target="_blank" rel="noopener" href="https://colossalai.org/zh-Hans/docs/concepts/paradigms_of_parallelism/" >并行技术 | Colossal-AI (colossalai.org)<i class="fas fa-external-link-alt"></i></a></p>
-<h3 id="数据并行"><a href="#数据并行" class="headerlink" title="数据并行"></a>数据并行</h3><p>DP，要 all-reduce 互相传梯度。</p>
-<h4 id="zero1"><a href="#zero1" class="headerlink" title="zero1"></a>zero1</h4><p> 对于 optimizer states 的切分。每个gpu只维护一部分优化器状态，也只更新一部分参数。这样显存和计算都减少了。</p>
-<p><img     src="https://cdn.jsdelivr.net/gh/ydshi0/picture/blog/202404090301958.png"   alt="image-20240409030145849" style="zoom: 33%;" ></p>
-<p>通信量并没有增加。Ring AllReduce就是分为两个步骤：reduce-scatter和 all-gather。</p>
-<p>通信量：$2\times (N-1)  \times  \frac{K}{N} $    k是数据大小，N个GPU</p>
-<p>资料</p>
-<p><a class="link"   target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/K8l7H2zCUr9sGzYehizFMA" >Ring AllReduce简介 <i class="fas fa-external-link-alt"></i></a></p>
-<h3 id="张量并行"><a href="#张量并行" class="headerlink" title="张量并行"></a>张量并行</h3><p>将attention、MLP拆开。只要在g处做all-reduce加在一起就行。</p>
-<p><img     src="https://cdn.jsdelivr.net/gh/ydshi0/picture/blog/202404090304716.png"   alt="image-20231212014706267" style="zoom: 50%;" ></p>
-<h4 id="sequence-parallel"><a href="#sequence-parallel" class="headerlink" title="sequence parallel"></a>sequence parallel</h4><p>将 layernorm 和 dropout 按sequence维度也拆分。通信g是前向的all-gather，反向reduce-scatter，$\hat{g}$相反。同样通信量也没有增加。</p>
-<p><img   src="https://cdn.jsdelivr.net/gh/ydshi0/picture/blog/202404090302167.png"  alt="image-20240409030212742"></p>
-<h3 id="流水线并行"><a href="#流水线并行" class="headerlink" title="流水线并行"></a>流水线并行</h3><p>Gpipe。算完前向再算反向。</p>
-<p><img   src="https://cdn.jsdelivr.net/gh/ydshi0/picture/blog/202404090303061.png"  alt="image-20240409030253495"></p>
-<p>1F1B、交错流水线 。上面是1F1B，保持进行中的微批次数量里只有4个（与管道深度一样），这样相比Gpipe显存会更小。</p>
-<p>layers 16，pp4配置下。1F1B划分：1-4，5-8，9-12，13-16。交错流水线可以1-2，9-10；3-4，11-12；5-6，13-14；7-8，15-16这样划分，可以理解为先把模型划分成几块（2块），再依次划分给GPU。这样需要更多轮1234才能算完（2次）一个前（反）向，但是时间也相应减小了，使得bubble占比更小。</p>
-<p><img   src="https://cdn.jsdelivr.net/gh/ydshi0/picture/blog/202404090303897.png"  alt="image-20240409030306593"></p>
-<h3 id="moe专家并行"><a href="#moe专家并行" class="headerlink" title="moe专家并行"></a>moe专家并行</h3><p>基于 Transformer 的 MoE，即将 Transformer 中的 MLP 层替换为 MoE 层。其他操作没变。</p>
-<p>从数据并行到专家并行需要转化切分维度，做all-to-all操作。</p>
-<p>在megatron中，是用all-gather、reduce-scatter实现all-to-all功能的。</p>
-<p><img     src="https://cdn.jsdelivr.net/gh/ydshi0/picture/blog/202404090303519.png"   alt="image-20240409030326828" style="zoom: 33%;" ></p>
-
+                    <div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉，您输入的密码错误，请检查后重新输入。" data-whm="抱歉, 当前文章不能被校验, 不过您还是可以看看解密后的内容。">
+  <script id="hbeData" type="hbeData" data-hmacdigest="7a2f0b544511e27ea7a8441cfb7fd0579cf4c08472d005ce0c8bd04ee259f80c">463f9e316d1170d91999ca3c1874fb1bafeffb428b0c40ef5707938beebbd7885672e69f00b3c0d7fede85e74c941565825195cd37c966c973f841a82726af660a7db292629f4d85b6bb7ee6d17e669817b4847c0948d6240aad8e6660a181c50641b7a7037088ed23dcc095b578d85c33cb1452f4b8408db4bc6b251a8d28108eb3782865f05b57f77497555d554e91d1008aeb01a0ccd84ed16a3f24e35527e86bb79555334f991e3da9f2d5272c9ccccace542e15aa24c5db44ed82c16243aad7938024b5614a7c6dac13431355871567725464e337bdeb116830f883897bcaeda103c431a3a3d38fa381cee4949f1d05a2464d05c97579c6e6c8eba98eb3efe36dbcf7c1452c9813e529e05510a1a9322bcc53c38e7b34781c94518794699772cebfa7bc12ae2e45deaeea81750c959623d3a295b00acb7fa7269239e3cb6ca492cf8e9251e4acd89c14fb608b48017d8fdb04adbb9daa0f0c58af8249fc7bdf34c5a9ba236d0144aad8af66e5403483a131fc5bd1307fb058c77fd36bc1754513a7dcbbf871bf89795fe2c62e90aa5b69dd7a594b6e34acb91c9220a278ffdbec7a04fc39a3a14f5c33c6289e9783daa1353271606ec4ab5453c153f066562f967694ed92b01b2eff25214f7d69</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">当前文章暂不对外可见，请输入密码后查看！</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">
                 </div>
                 
 
@@ -295,7 +284,11 @@
                             <ul class="post-tags-box border-box">
                                 
                                     <li class="tag-item border-box">
-                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/GPU%E5%B9%B6%E8%A1%8C/">GPU并行</a>
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/private/">private</a>
+                                    </li>
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/%E7%94%9F%E6%B4%BB/">生活</a>
                                     </li>
                                 
                             </ul>
@@ -311,31 +304,15 @@
                 
                     <div class="post-nav border-box">
                         
-                            <div class="prev-post">
-                                <a class="prev"
-                                   rel="prev"
-                                   href="/2023/12/01/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/"
-                                   title="深度学习基础"
-                                >
-                                    <span class="left arrow-icon flex-center">
-                                        <i class="fas fa-chevron-left"></i>
-                                    </span>
-                                    <span class="title flex-center">
-                                        <span class="post-nav-title-item text-ellipsis">深度学习基础</span>
-                                        <span class="post-nav-item">Prev posts</span>
-                                    </span>
-                                </a>
-                            </div>
-                        
                         
                             <div class="next-post">
                                 <a class="next"
                                    rel="next"
-                                   href="/2023/11/01/transformer/"
-                                   title="transformer"
+                                   href="/2024/05/09/%E7%94%9F%E6%B4%BB-%E6%83%85%E6%84%9F/%E8%8A%99%E8%8E%89%E8%8E%B2/"
+                                   title="芙莉莲"
                                 >
                                     <span class="title flex-center">
-                                        <span class="post-nav-title-item text-ellipsis">transformer</span>
+                                        <span class="post-nav-title-item text-ellipsis">芙莉莲</span>
                                         <span class="post-nav-item">Next posts</span>
                                     </span>
                                     <span class="right arrow-icon flex-center">
@@ -363,7 +340,7 @@
             <div class="pc-post-toc right-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%B9%B6%E8%A1%8C"><span class="nav-text">数据并行</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#zero1"><span class="nav-text">zero1</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%A0%E9%87%8F%E5%B9%B6%E8%A1%8C"><span class="nav-text">张量并行</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sequence-parallel"><span class="nav-text">sequence parallel</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%81%E6%B0%B4%E7%BA%BF%E5%B9%B6%E8%A1%8C"><span class="nav-text">流水线并行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#moe%E4%B8%93%E5%AE%B6%E5%B9%B6%E8%A1%8C"><span class="nav-text">moe专家并行</span></a></li></ol>
+        
     </div>
 </div>
 
@@ -536,7 +513,7 @@
             <div class="tablet-post-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%B9%B6%E8%A1%8C"><span class="nav-text">数据并行</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#zero1"><span class="nav-text">zero1</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%A0%E9%87%8F%E5%B9%B6%E8%A1%8C"><span class="nav-text">张量并行</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sequence-parallel"><span class="nav-text">sequence parallel</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%81%E6%B0%B4%E7%BA%BF%E5%B9%B6%E8%A1%8C"><span class="nav-text">流水线并行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#moe%E4%B8%93%E5%AE%B6%E5%B9%B6%E8%A1%8C"><span class="nav-text">moe专家并行</span></a></li></ol>
+        
     </div>
 </div>
 
